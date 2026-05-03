@@ -86,8 +86,8 @@ app.get('/', (req, res) => {
           <ul>
             <li><a href="/login">Login Page</a> — Rate Limiting Demo</li>
             <li><a href="/secure">Secure Area</a> — Zero Trust Protected</li>
-            <li><a href="/admin">Admin Panel</a> — WAF Demo</li>
-            <li><a href="/api/data">API Endpoint</a> — SQL Injection Test</li>
+            // <li><a href="/admin">Admin Panel</a> — WAF Demo</li>
+            // <li><a href="/api/data">API Endpoint</a> — SQL Injection Test</li>
           </ul>
         </div>
       </body>
@@ -128,38 +128,35 @@ app.get('/login', (req, res) => {
 // ============================================
 // ADMIN PAGE - WAF Demo
 // ============================================
-app.get('/admin', (req, res) => {
-  res.send(`
-    <html>
-      <body style="font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px;">
-        <h2>⚙️ Admin Panel</h2>
-        <p>This page is protected by Cloudflare's WAF Managed Rulesets.</p>
-        <p>Try appending <code>?id=1' OR '1'='1</code> to the URL — Cloudflare will block it.</p>
-      </body>
-    </html>
-  `);
-});
+// app.get('/admin', (req, res) => {
+//   res.send(`
+//     <html>
+//       <body style="font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px;">
+//         <h2>⚙️ Admin Panel</h2>
+//         <p>This page is protected by Cloudflare's WAF Managed Rulesets.</p>
+//         <p>Try appending <code>?id=1' OR '1'='1</code> to the URL — Cloudflare will block it.</p>
+//       </body>
+//     </html>
+//   `);
+// });
 
-// ============================================
-// API ENDPOINT - SQL Injection Demo Target
-// ============================================
-app.get('/api/data', (req, res) => {
-  const id = req.query.id;
-  res.json({
-    message: "If you see this, Cloudflare WAF allowed the request",
-    requested_id: id || "none",
-    data: [{ id: 1, name: "Sample Record" }]
-  });
-});
+// // ============================================
+// // API ENDPOINT - SQL Injection Demo Target
+// // ============================================
+// app.get('/api/data', (req, res) => {
+//   const id = req.query.id;
+//   res.json({
+//     message: "If you see this, Cloudflare WAF allowed the request",
+//     requested_id: id || "none",
+//     data: [{ id: 1, name: "Sample Record" }]
+//   });
+// });
 
 // ============================================
 // SECURE PAGE - Zero Trust Protected
 // (Worker will override this in Part 3)
 // ============================================
 app.get('/secure', (req, res) => {
-  const email = req.headers['cf-access-authenticated-user-email'] || 'Not authenticated';
-  const country = req.headers['cf-ipcountry'] || 'Unknown';
-  
   res.send(`
     <html>
       <head>
@@ -173,8 +170,6 @@ app.get('/secure', (req, res) => {
         <h1>🔒 Secure Area</h1>
         <span class="secure-badge">Zero Trust Protected</span>
         <p>You have successfully authenticated.</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Country:</strong> <a href="/flags/${country}">${country}</a></p>
       </body>
     </html>
   `);
