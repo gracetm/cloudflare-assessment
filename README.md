@@ -280,7 +280,6 @@ The Worker requires two bindings configured in `wrangler.jsonc`:
 {
   "binding": "flags_database",
   "database_name": "flags-database",
-  "database_id": "82ef7d8a-87df-4fce-ae40-1e7ba20a4018"
 }
 ```
 
