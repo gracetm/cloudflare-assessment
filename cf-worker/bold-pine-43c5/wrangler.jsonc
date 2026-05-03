@@ -1,0 +1,31 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "bold-pine-43c5",
+	"main": "src/index.js",
+	"compatibility_date": "2026-05-03",
+	"observability": {
+		"enabled": true
+	},
+	"upload_source_maps": true,
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"r2_buckets": [
+		{
+			"binding": "FLAGS_BUCKET",
+			"bucket_name": "flags-bucket"
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "flags_database",
+			"database_name": "flags-database",
+			"database_id": "82ef7d8a-87df-4fce-ae40-1e7ba20a4018",
+			// "remote": true
+		}
+	]
+}
