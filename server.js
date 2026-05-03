@@ -6,61 +6,49 @@ const PORT = process.env.PORT || 3000;
 // MIDDLEWARE - Block direct Render access
 // Only allow requests coming through Cloudflare
 // ============================================
-app.use((req, res, next) => {
-  // Check multiple Cloudflare headers
-  const cfRay = req.headers['cf-ray'];
-  const cfConnecting = req.headers['cf-connecting-ip'];
-  const cfVisitor = req.headers['cf-visitor'];
-  const cfIpCountry = req.headers['cf-ipcountry'];
-  
-  // Check if ANY Cloudflare header is present
-  const isCloudflare = cfRay || cfConnecting || cfVisitor || cfIpCountry;
-  
-  // Also check if request is coming from Render's internal network
-  const isRenderInternal = req.headers['x-forwarded-proto'] && 
-                           req.headers['x-forwarded-for'] &&
-                           !isCloudflare;
-  
-  // Block if no Cloudflare headers AND not from Render internal
-  if (!isCloudflare && isRenderInternal) {
-    return res.status(403).send(`
-      <html>
-        <head>
-          <title>403 - Access Forbidden</title>
-          <style>
-            body { 
-              font-family: Arial, sans-serif; 
-              text-align: center; 
-              padding: 50px;
-              background: #f5f5f5;
-            }
-            .error-box {
-              background: white;
-              border: 2px solid #e74c3c;
-              border-radius: 8px;
-              padding: 40px;
-              max-width: 600px;
-              margin: 0 auto;
-            }
-            h1 { color: #e74c3c; }
-            .icon { font-size: 64px; margin-bottom: 20px; }
-          </style>
-        </head>
-        <body>
-          <div class="error-box">
-            <div class="icon">🚫</div>
-            <h1>403 - Direct Access Forbidden</h1>
-            <p>This server can only be accessed through Cloudflare.</p>
-            <p>Please visit via the proper domain: <strong>tmgracee.online</strong></p>
-            <hr>
-            <small>Request ID: ${Date.now()}</small>
-          </div>
-        </body>
-      </html>
-    `);
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   const cfRay = req.headers['cf-ray'];
+
+//   if (!cfRay) {
+//     return res.status(403).send(`
+//       <html>
+//         <head>
+//           <title>403 - Access Forbidden</title>
+//           <style>
+//             body { 
+//               font-family: Arial, sans-serif; 
+//               text-align: center; 
+//               padding: 50px;
+//               background: #f5f5f5;
+//             }
+//             .error-box {
+//               background: white;
+//               border: 2px solid #e74c3c;
+//               border-radius: 8px;
+//               padding: 40px;
+//               max-width: 600px;
+//               margin: 0 auto;
+//             }
+//             h1 { color: #e74c3c; }
+//             .icon { font-size: 64px; margin-bottom: 20px; }
+//           </style>
+//         </head>
+//         <body>
+//           <div class="error-box">
+//             <div class="icon">🚫</div>
+//             <h1>403 - Direct Access Forbidden</h1>
+//             <p>This server can only be accessed through Cloudflare.</p>
+//             <p>Please visit via the proper domain: <strong>tmgracee.online</strong></p>
+//             <hr>
+//             <small>Request ID: ${Date.now()}</small>
+//           </div>
+//         </body>
+//       </html>
+//     `);
+//   }
+
+//   next();
+// });
 
 // ============================================
 // HOMEPAGE
