@@ -5,7 +5,7 @@ This repository contains my implementation of the Cloudflare Associate Solutions
 ## Live Demo
 
 - **Main Application**: https://tmgracee.online
-- **Worker Endpoint**: https://bold-pine-43c5.gracetm.workers.dev
+- **Worker Endpoint**: https://cf-worker.gracetm.workers.dev/
 - **Protected Path**: https://tmgracee.online/secure (authentication required)
 
 ## Project Overview
