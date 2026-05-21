@@ -128,29 +128,29 @@ app.get('/login', (req, res) => {
 // ============================================
 // ADMIN PAGE - WAF Demo
 // ============================================
-// app.get('/admin', (req, res) => {
-//   res.send(`
-//     <html>
-//       <body style="font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px;">
-//         <h2>⚙️ Admin Panel</h2>
-//         <p>This page is protected by Cloudflare's WAF Managed Rulesets.</p>
-//         <p>Try appending <code>?id=1' OR '1'='1</code> to the URL — Cloudflare will block it.</p>
-//       </body>
-//     </html>
-//   `);
-// });
+app.get('/admin', (req, res) => {
+  res.send(`
+    <html>
+      <body style="font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px;">
+        <h2>⚙️ Admin Panel</h2>
+        <p>This page is protected by Cloudflare's WAF Managed Rulesets.</p>
+        <p>Try appending <code>?id=1' OR '1'='1</code> to the URL — Cloudflare will block it.</p>
+      </body>
+    </html>
+  `);
+});
 
-// // ============================================
-// // API ENDPOINT - SQL Injection Demo Target
-// // ============================================
-// app.get('/api/data', (req, res) => {
-//   const id = req.query.id;
-//   res.json({
-//     message: "If you see this, Cloudflare WAF allowed the request",
-//     requested_id: id || "none",
-//     data: [{ id: 1, name: "Sample Record" }]
-//   });
-// });
+// ============================================
+// API ENDPOINT - SQL Injection Demo Target
+// ============================================
+app.get('/api/data', (req, res) => {
+  const id = req.query.id;
+  res.json({
+    message: "If you see this, Cloudflare WAF allowed the request",
+    requested_id: id || "none",
+    data: [{ id: 1, name: "Sample Record" }]
+  });
+});
 
 // ============================================
 // SECURE PAGE - Zero Trust Protected
